@@ -1,28 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <nav class="navbar navbar-dark bg-dark" style="color:white;">
+      
+      <div v-if="!isAuthenticated">
+        <router-link to="/login" style="color:white;">Login</router-link> 
+      </div>
+      <div v-if="isAuthenticated">
+        <a href="#" @click="logout"  style="color:white;">Logout</a> 
+      </div>
+      <div v-if="!isAuthenticated">
+         <router-link to="/register" style="color:white;">Register</router-link> 
+      </div>
+      
+    </nav>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+import { authService } from './services/Auth'
+  export default {
+    data() {
+      return {
+        isAuthenticated: false, 
+      }
+    },
+    methods: {
+      logout() {
+        authService.logout()
+        this.$router.push('/login')
+      }
+    }
   }
-}
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
