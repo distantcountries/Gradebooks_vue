@@ -4,7 +4,7 @@
             <h3>Login</h3>
             <input type="text" name="email" placeholder="Email..." v-model="email" class="form-control" />
             <input type="text" name="password" placeholder="Password..." v-model="password" class="form-control" />
-            <button type="submit" class="btn btn-primary">Log in</button>
+            <button type="submit" class="btn btn-info">Log in</button>
         </form>
     </div>
 </template>

@@ -11,7 +11,7 @@
                 <input type="checkbox" required title="Please confirm terms of use" />
                 <span> I accept terms and conditions</span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-info">Register</button>
         </form>
     </div>
 </template>

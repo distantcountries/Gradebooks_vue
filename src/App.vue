@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-dark bg-dark" style="color:white;">
+      <h5>Online Gradebook</h5>
       
       <div v-if="!isAuthenticated">
         <router-link to="/login" style="color:white;">Login</router-link> 
@@ -11,6 +12,11 @@
       <div v-if="!isAuthenticated">
          <router-link to="/register" style="color:white;">Register</router-link> 
       </div>
+
+      <router-link to="/teachers" style="color:white;">All professors</router-link> 
+      <router-link to="/professors/create" style="color:white;">Add professor</router-link> 
+      <router-link to="/my-gradebook" style="color:white;">My Gradebook</router-link> 
+      <router-link to="/gradebooks/create" style="color:white;">Add Gradebook</router-link> 
       
     </nav>
     <router-view/>
@@ -33,3 +39,9 @@ import { authService } from './services/Auth'
     }
   }
 </script>
+
+<style>
+h5 {
+  color:#aaf0d1;
+}
+</style>
