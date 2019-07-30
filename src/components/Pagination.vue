@@ -1,18 +1,17 @@
 <template>
   <nav v-if="numberOfPages > 1">
-    <ul class="pagination">
-      <li class="page-item" :class="{ 'active': currentPage === page }" v-for="page in numberOfPages" :key="page">
-        <a class="page-link" @click="selectPage(page)">
-          {{ page }}
-        </a>
-      </li>
-    </ul>
+  
+      <div :class="{ 'active': currentPage === page }" v-for="page in numberOfPages" :key="page">
+
+      </div>
+      <button @click="selectPage(page)">Load more</button>
+    
   </nav>
 </template>
 
 <script>
 export default {
-  name: 'CustomPaginator',
+  name: 'Pagination',
   props: {
     numberOfPages: {
       type: Number,
