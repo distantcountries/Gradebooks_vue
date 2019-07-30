@@ -31,17 +31,14 @@ import { authService } from './services/Auth'
         isAuthenticated: false, 
       }
     },
-
     created() {
       this.isAuthenticated = authService.isAuthenticated();
     },
-
     methods: {
       logout() {
         authService.logout()
         this.$router.push('/login')
       }, 
-
     }
   }
 </script>
@@ -52,14 +49,11 @@ import { authService } from './services/Auth'
   font-size: 1.5rem;
   font-weight: bold;
 }
-
 img {
   width: 10%;
   height: 10%;
 }
-
 .betweenLinks {
   color: #38a2b8;
 }
-
 </style>

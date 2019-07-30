@@ -7,6 +7,8 @@ import AllProfessors from './components/AllProfessors'
 import MyGradebook from './components/MyGradebook'
 import AddGradebook from './components/AddGradebook'
 import AddProfessor from './components/AddProfessor'
+import SingleGradebook from './components/SingleGradebook'
+
 import { authService } from './services/Auth'
 
 Vue.use(VueRouter)
@@ -45,6 +47,11 @@ const routes = [{
         path: '/professors/create',
         component: AddProfessor,
         name: 'add-professors',
+    },
+    {
+        path: '/gradebooks/:id',
+        component: SingleGradebook,
+        name: 'single-gradebook',
     },
 
 

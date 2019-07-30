@@ -1,20 +1,35 @@
 <template>
     <div>
-        Single Gradebook
+        {{ gradebook.name }}
     </div>
 </template>
 
 <script>
+import { gardebooksService } from '../services/GardebooksService'
 export default {
+    data() {
+        return{
+            gradebook:'' 
 
+        }
+    },
+
+     beforeRouteEnter (to, from, next) {
+        next(vm => {
+            gardebooksService.get(vm.$route.params.id)
+                .then(response => {
+                    vm.gradebook = response.data;
+                }).
+                catch(error => {
+                    alert(error);
+                })
+        })
+    },
 }
 </script>
 
 <style>
-/* ??? da li je singleGradebook isto sto i myGradebook */
-
-
-     /* “/gradebooks/:id”
+/* ??? da li je singleGradebook isto sto i myGradebook 
 
     - indentičan prikaz dnevnika  kao na my-gradebook stranici. 
         - dnevnik ..naziv
