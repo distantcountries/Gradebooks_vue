@@ -2,9 +2,10 @@
     <div>
         <form @submit.prevent="login">
             <h3>Login</h3>
-            <input type="text" name="email" placeholder="Email..." v-model="email" class="form-control" />
-            <input type="text" name="password" placeholder="Password..." v-model="password" class="form-control" />
-            <button type="submit" class="btn btn-info">Log in</button>
+            <input type="email" name="email" placeholder="Email..." v-model="email" class="form-control" required title="Plese insert your email" />
+            <input type="password" name="password" placeholder="Password..." v-model="password" class="form-control" required />
+            <button type="submit" class="btn btn-info" >Log in</button>
+            <p style="color:#ef5656;" >{{ errorMessage }}</p>
         </form>
     </div>
 </template>
@@ -15,20 +16,21 @@ export default {
     data() {
         return {
             email:'',
-            password:''
+            password:'',
+            errorMessage:'',
         }
     }, 
 
     methods: {
-      login() {
-        authService.login(this.email, this.password)
-          .then(() => {
-            this.$router.push({ name: "gradebooks" })
-          })
-          .catch(() => {
-            this.errorMessage = 'Something wrong with login!';
-          })
-      }, 
+        login() {
+            authService.login(this.email, this.password)
+            .then(() => {
+                this.$router.push({ name: "gradebooks" })
+            })
+            .catch(() => {
+                this.errorMessage = 'Wrong credentials!';
+            })
+        }, 
     }
 }
 </script>

@@ -7,6 +7,7 @@ import AllProfessors from './components/AllProfessors'
 import MyGradebook from './components/MyGradebook'
 import AddGradebook from './components/AddGradebook'
 import AddProfessor from './components/AddProfessor'
+import { authService } from './services/Auth'
 
 Vue.use(VueRouter)
 
@@ -55,3 +56,14 @@ export const router = new VueRouter({
 })
 
 
+router.beforeEach((to, from, next) => {
+    if (to.name !== 'login' && to.name !== 'register' && to.name !== 'gradebooks' && !authService.isAuthenticated()) {
+        return router.push({ name: 'login' });
+    }
+
+    if ((to.name === 'login' || to.name === 'register') && authService.isAuthenticated()) {
+        return router.push({ name: from.name });
+    }
+
+    next()
+})

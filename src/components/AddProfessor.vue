@@ -45,6 +45,27 @@ export default {
 form button {
     margin-right: 1rem;
 }
+/* 
+forma profesora:
+- firstName -> required, max 255
+- lastName -> required, max 255
+- select box koji prikazuje sve dnevnike koji nemaju dodeljenog razrednog starešinu 
+    (ovo polje moze da bude nullable, i nije potrebno dodati dnevnik da bi se kreirao profesor)
+- input za dodavanje slike profesora -> required
+    * Imam mogućnost da dodajem proizvoljan broj URL-ova preko dugmeta “Add Image”
+    * Za svaki URL postavljamo posebno input polje
+    * Validiramo da li je upisan validan URL i da li se URL završava sa nekom image
+        ekstenzijom (png, jpg ili jpeg)
+    * Imam mogućnost da uklonim bilo koji URL
+    * defaultno se ne prikazuje nijedan input za dodavanje slika. Ukoliko user ne doda sliku, 
+        i pokusa da submituje vraća mu se validaciona poruka i ispisuje se da je neophodno dodati 
+        bar jednu sliku 
+    * click-om na dugme add Image kreira se input ispod Title inputa
+- “Submit”, ako su podaci neispravni, dobijam validacione poruke. Ako su podaci ispravni preusmerenje  
+    na stranicu “All Professors”.
+- dugme “Cancel” koje me preusmerava na “All Professors” */
+
+
 
 
 </style>

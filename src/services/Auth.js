@@ -7,13 +7,14 @@ export default class AuthService {
     }
 
     login(email, password) {
-        return axios.post('http://localhost:8000/api/login', { 
+        return axios.post('http://localhost:8000/api/login', {
             email,
             password
         }).then(({ data }) => {
-            window.localStorage.setItem('loginToken', data.token) 
+            window.localStorage.setItem('loginToken', data.token)
             window.localStorage.setItem('user', JSON.stringify(data.user))
             this.setAxiosDefaultAuthorizationHeader()
+            console.log('login')
             return data.user;
         })
     }
@@ -34,15 +35,23 @@ export default class AuthService {
         return !!window.localStorage.getItem('loginToken')
     }
 
-    register(name, email, password) {
+    register(firstName, lastName, email, password) {
         this.user = {};
-        this.user.name = name;
+        this.user.firstName = firstName;
+        this.user.lastName = lastName;
         this.user.email = email;
         this.user.password = password;
         return axios.post('http://localhost:8000/api/register', this.user)
-          .catch($e => {
-            alert($e)
-          })
+            .then(({ data }) => {
+                window.localStorage.setItem('loginToken', data.token)
+                window.localStorage.setItem('user', JSON.stringify(data.user))
+                this.setAxiosDefaultAuthorizationHeader()
+                console.log('login after register')
+                return data.user;
+            })
+            .catch($e => {
+                alert($e)
+            })
     }
 }
 

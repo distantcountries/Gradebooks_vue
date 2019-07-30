@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-dark bg-dark" style="color:white;">
-      <h5>Online Gradebook</h5>
-      
+    <nav class="navbar navbar-dark bg-light" style="color:white; padding:1rem 3rem 1rem 3rem;">
+      <div>
+        <img alt="Gradebook" src="./assets/book.png">
+        <span id="logoText">Online Gradebook</span>
+      </div>
       <div v-if="!isAuthenticated">
-        <router-link to="/login" style="color:white;">Login</router-link> 
+        <router-link to="/" style="color:#38a2b8;">Gradebooks</router-link><span class="betweenLinks"> | </span> 
+        <router-link to="/login" style="color:#ef5656;">Login</router-link><span class="betweenLinks"> | </span> 
+        <router-link to="/register" style="color:#ef5656;">Register</router-link> 
       </div>
       <div v-if="isAuthenticated">
-        <a href="#" @click="logout"  style="color:white;">Logout</a> 
+        <router-link to="/" style="color:#38a2b8;">Gradebooks</router-link><span class="betweenLinks"> | </span> 
+        <router-link to="/teachers" style="color:#38a2b8;">All professors</router-link><span class="betweenLinks"> | </span> 
+        <router-link to="/professors/create" style="color:#38a2b8;">Add professor</router-link><span class="betweenLinks"> | </span> 
+        <router-link to="/my-gradebook" style="color:#38a2b8;">My Gradebook</router-link><span class="betweenLinks"> | </span> 
+        <router-link to="/gradebooks/create" style="color:#38a2b8;">Add Gradebook</router-link><span class="betweenLinks"> | </span> 
+        <a href="#" @click="logout"  style="color:#ef5656;">Logout</a> 
       </div>
-      <div v-if="!isAuthenticated">
-         <router-link to="/register" style="color:white;">Register</router-link> 
-      </div>
-
-      <router-link to="/teachers" style="color:white;">All professors</router-link> 
-      <router-link to="/professors/create" style="color:white;">Add professor</router-link> 
-      <router-link to="/my-gradebook" style="color:white;">My Gradebook</router-link> 
-      <router-link to="/gradebooks/create" style="color:white;">Add Gradebook</router-link> 
-      
     </nav>
     <router-view/>
   </div>
@@ -31,17 +31,35 @@ import { authService } from './services/Auth'
         isAuthenticated: false, 
       }
     },
+
+    created() {
+      this.isAuthenticated = authService.isAuthenticated();
+    },
+
     methods: {
       logout() {
         authService.logout()
         this.$router.push('/login')
-      }
+      }, 
+
     }
   }
 </script>
 
 <style>
-h5 {
-  color:#aaf0d1;
+#logoText {
+  color:#ef5656;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
+
+img {
+  width: 10%;
+  height: 10%;
+}
+
+.betweenLinks {
+  color: #38a2b8;
+}
+
 </style>

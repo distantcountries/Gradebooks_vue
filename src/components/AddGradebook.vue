@@ -31,6 +31,15 @@ export default {
 </script>
 
 <style>
+    /* forma dnevnika:
+    - Naziv, obavezno polje, minimum 2 karaktera, maksimum 255
+    - Select box za biranje Razrednog 
+            * U listi vidimo samo Profesore koji predhodno nisu razredne starešine, 
+                (vučemo postojeće podatke iz baze)
+    - “Submit”
+            * Ako su podaci neispravni, dobijam validacione poruke.
+            * Ako su podaci ispravni, dnevnik je dodat i preusmeren sam na stranicu “Gradebooks”.
+    - dugme “Cancel” koje me preusmerava na “Gradebooks” */
 
 </style>
 
