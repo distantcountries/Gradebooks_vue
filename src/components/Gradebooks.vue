@@ -8,8 +8,8 @@
         <ul>
             <li v-for="(gradebook, index) in visibleGradebooks" :key="index">
                 <span class="linkTittle"><router-link :to="singleGardebook(gradebook.id)">{{ gradebook.name }}</router-link></span><br>
-                <span class="linkElement" v-if="gradebook.professor_id===null" style="color:#727272;">This gradebook still doesn't have a professor</span>
-                <span class="linkElement" v-else><router-link :to="mainProfessor(gradebook.professor.id)">Professor {{ gradebook.professor.firstName }} {{ gradebook.professor.lastName }}</router-link></span><br>
+                <span class="linkElement" v-if="gradebook.user_id===null" style="color:#727272;">This gradebook still doesn't have a professor</span>
+                <span class="linkElement" v-else><router-link :to="mainProfessor(gradebook.user.id)">Professor {{ gradebook.user.firstName }} {{ gradebook.user.lastName }}</router-link></span><br>
                 <span class="timeElement">Created at: {{ gradebook.created_at }}</span>
                 <hr>
             </li>
@@ -126,6 +126,9 @@ h2 {
     align-content: center;
 }
 
+.container {
+    padding: 3rem;
+}
 
 
 /* 
@@ -151,8 +154,6 @@ dnevnici koji imaju ukucan termin u imenu dnevnika
 “load more” se i dalje prikazuje i klikom na “load more” dugme se učitava novih 10
 dnevnika koji zadovoljavaju kriterijume filtera. */
 
-.container {
-    padding: 3rem;
-}
+
 </style>
 

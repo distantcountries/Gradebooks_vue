@@ -1,6 +1,14 @@
 <template>
-    <div>
-        {{ gradebook.name }}
+    <div class="container">
+        <h2 class="pageHeader">{{ gradebook.name }}</h2>
+        <hr>
+        {{ gradebook.user.firstName }}
+        <ul>
+            <li v-for="(student, index) in students" :key="index">
+                {{ student.firstName }}
+            </li>
+            <!-- <li>This gradebook still doesn't have students.</li> -->
+        </ul>
     </div>
 </template>
 
@@ -9,7 +17,7 @@ import { gardebooksService } from '../services/GardebooksService'
 export default {
     data() {
         return{
-            gradebook:'' 
+            gradebook:'', 
 
         }
     },
@@ -25,27 +33,73 @@ export default {
                 })
         })
     },
+
+    computed: {
+        students() {
+            return this.gradebook.students
+        }, 
+    }
+
+
 }
 </script>
 
 <style>
+
+.linkTittle a {
+    font-size: 1.5rem;
+    color: #eebd30;
+    font-weight: bold;
+}
+
+.linkTittle a:hover, .linkElement a:hover {
+    color:#9F9F9F;
+    text-decoration: none;
+}
+
+.linkElement a {
+    color:#494949;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.timeElement {
+    color: #727272;
+    font-style: italic;
+}
+
+h2 {
+    width:70%;
+}
+
+.pageHeader {
+    width: 100%;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.container {
+    padding: 3rem;
+}
+
+
 /* ??? da li je singleGradebook isto sto i myGradebook 
 
     - indentičan prikaz dnevnika  kao na my-gradebook stranici. 
-        - dnevnik ..naziv
+        +++- dnevnik ..naziv
         - ime i prezime razrednog staresine
-        - liste učenika
-            * Ukoliko nema dodeljenog ni jednog učenika prikazujemo odgovarajucu poruku. 
+        +++- liste učenika
+        - Ukoliko nema dodeljenog ni jednog učenika prikazujemo odgovarajucu poruku. 
         - dugme “Add New Students” - U gornjem levom uglu. Klikom otvara se stranica za dodavanje učenika 
             link -> ‘/gradebooks/:id/students/create’
-                ?? mogu da dodajem ucenike na neki random dnevnik ??
             
     Lista komentara:
     Commentar:
         - ime autora
         - vreme postavljanja
         - content komentara
-
 
     Ako sam ulogovan korisnik, ispod liste komentara:
     forma comments:

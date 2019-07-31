@@ -6,11 +6,11 @@ export default class ProfessorsService {
     }
 
     getAll() {
-        return axios.get('professors')
+        return axios.get('users')
     }
 
     get(id) {
-        return axios.get('professors/' + id)
+        return axios.get('users/' + id)
     }
 
 
