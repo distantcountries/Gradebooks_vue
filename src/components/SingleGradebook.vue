@@ -2,7 +2,7 @@
     <div class="container">
         <h2 class="pageHeader">{{ gradebook.name }}</h2>
         <hr>
-        {{ gradebook.user.firstName }}
+        {{user}}
         <ul>
             <li v-for="(student, index) in students" :key="index">
                 {{ student.firstName }}
@@ -38,6 +38,10 @@ export default {
         students() {
             return this.gradebook.students
         }, 
+
+        user() {
+            return this.gradebook.user.firstName
+        }
     }
 
 
