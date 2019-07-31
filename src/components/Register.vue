@@ -41,6 +41,7 @@ export default {
             authService.register(this.firstName, this.lastName, this.email, this.password)
             .then(() => {
                 this.isAuthenticated = true
+                this.$bus.$emit('logged', 'user')
                 this.$router.push({ name: "gradebooks" });
             });
         },

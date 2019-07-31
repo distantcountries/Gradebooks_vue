@@ -14,7 +14,6 @@ export default class AuthService {
             window.localStorage.setItem('loginToken', data.token)
             window.localStorage.setItem('user', JSON.stringify(data.user))
             this.setAxiosDefaultAuthorizationHeader()
-            console.log('login')
             return data.user;
         })
     }

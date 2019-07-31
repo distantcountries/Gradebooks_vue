@@ -1,34 +1,41 @@
 <template>
     <div class="container">
-        <h3>Gradebooks</h3><hr>
-
+        <div class="pageHeader">
+            <h2>Gradebooks</h2>
+            <GradebookSearch @searchTermUpdated="setSearchTerm" />
+        </div>
+        <hr>
         <ul>
             <li v-for="(gradebook, index) in visibleGradebooks" :key="index">
                 <span class="linkTittle"><router-link :to="singleGardebook(gradebook.id)">{{ gradebook.name }}</router-link></span><br>
-                <span class="linkElement" v-if="gradebook.professor.id===null">This gradebook still doesn't have a professor</span>
+                <span class="linkElement" v-if="gradebook.professor_id===null" style="color:#727272;">This gradebook still doesn't have a professor</span>
                 <span class="linkElement" v-else><router-link :to="mainProfessor(gradebook.professor.id)">Professor {{ gradebook.professor.firstName }} {{ gradebook.professor.lastName }}</router-link></span><br>
                 <span class="timeElement">Created at: {{ gradebook.created_at }}</span>
                 <hr>
             </li>
             <li v-if="gradebooks.length === 0">There is no created gradebooks</li>
         </ul>
-        <button @click="encreaseShownGradebooks">Load more</button>
+        <div v-if="gradebooks.length/10>counter && gradebooks.length>0 " style="padding-left:50%;">
+            <button @click="encreaseShownGradebooks" type="button" class="btn btn-warning">Load more</button>
+        </div>
     </div>
 </template>
 
 <script>
 import { gardebooksService } from '../services/GardebooksService'
-import Pagination from './Pagination'
+import GradebookSearch from './GradebookSearch'
 export default {
     components: {
-        Pagination
+        GradebookSearch
     },
 
     data() {
         return {
             gradebooks:[], 
             currentPage:1, 
-            shownGradebooks:10
+            shownGradebooks:10, 
+            counter:1, 
+            term:''
         }
     }, 
     
@@ -36,9 +43,6 @@ export default {
         gardebooksService.getAll()
             .then(response => {
                 this.gradebooks = response.data
-            })
-            .catch(() => {
-                console.log('Error!')
             })
     },
 
@@ -57,21 +61,30 @@ export default {
 
         encreaseShownGradebooks() {
             this.shownGradebooks+=10
-        }
+            ++this.counter
+        }, 
+        
+        setSearchTerm(term) {
+            this.term = term;
+            this.visibleGradebooks
+        },
     },
 
     computed: {
-        numberOfPages() {
-            return Math.ceil(this.gradebooks.length / this.shownGradebooks);
+        reversedGradebooks() {
+            return this.gradebooks.filter(gradebook => {
+                return gradebook.name.toLowerCase().includes(this.term.toLowerCase())
+            }).reverse()
         },
 
         visibleGradebooks() {
             let bottomLimit = (this.currentPage - 1) * this.shownGradebooks;
             let topLimit = bottomLimit + this.shownGradebooks;
-            return this.gradebooks.filter((gradebooks, index) => {
+            return this.reversedGradebooks.filter((reversedGradebooks, index) => {
                 return index >= bottomLimit && index < topLimit;
             })
-        }
+        }, 
+
     },
 
 }
@@ -101,30 +114,39 @@ export default {
     font-style: italic;
 }
 
-h3 {
-    font-weight: bold;
+h2 {
+    width:70%;
+}
+
+.pageHeader {
+    width: 100%;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    align-content: center;
 }
 
 
-/* lista poslednjh 10 dnevnika 
 
-------dnevnik:
-+++-naziv dnevnika -> link /gradebooks/:id, 
+/* 
++++- lista poslednjh 10 dnevnika 
+
++++- dnevnik:
++++- naziv dnevnika -> link /gradebooks/:id, 
 +++- ime i prezime razrednog starešine  -> link /teachers/:id
-ukoliko dnevnik nema razrednog starešinu prikazujemo odgovarajucu poruku na datom mestu
++++- ukoliko dnevnik nema razrednog starešinu prikazujemo odgovarajucu poruku na datom mestu
 +++- vreme kreiranja. 
 
 +++U slučaju da nije kreiran nijedan dnevnik, prikazati odgovarajuću poruku. 
 
-------“load more” , na dnu stranice:
-- da učitam dodatnih 10 dnevnika
-- Ako nema više dnevnika za učitavanje, ovaj button se ne prikazuje.
++++- “load more” , na dnu stranice:
++++- da učitam dodatnih 10 dnevnika
++++- Ako nema više dnevnika za učitavanje, ovaj button se ne prikazuje.
 
--------input polje i dugme “Filtriraj”, na vrhu stranice:
-- da filtriram dnevnike
-- kada ukucam termin i kliknem na dugme prikazuju mi se samo
++++- input polje i dugme “Filtriraj”, na vrhu stranice:
++++- da filtriram dnevnike
++++- kada ukucam termin i kliknem na dugme prikazuju mi se samo
 dnevnici koji imaju ukucan termin u imenu dnevnika 
-(podrazumeva se partial term kao i case insensitive). 
 
 “load more” se i dalje prikazuje i klikom na “load more” dugme se učitava novih 10
 dnevnika koji zadovoljavaju kriterijume filtera. */

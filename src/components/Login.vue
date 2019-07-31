@@ -21,10 +21,15 @@ export default {
         }
     }, 
 
+    created() {
+         this.$bus.$emit('logged', 'user')
+    },
+
     methods: {
         login() {
             authService.login(this.email, this.password)
             .then(() => {
+                this.$bus.$emit('logged', 'user')
                 this.$router.push({ name: "gradebooks" })
             })
             .catch(() => {

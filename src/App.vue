@@ -28,12 +28,19 @@ import { authService } from './services/Auth'
   export default {
     data() {
       return {
-        isAuthenticated: false, 
+        isAuthenticated: authService.isAuthenticated() 
       }
     },
+    // created() {
+    //   this.isAuthenticated = authService.isAuthenticated();
+    // },
+
     created() {
-      this.isAuthenticated = authService.isAuthenticated();
+         this.$bus.$on('logged', () => {
+             this.isAuthenticated = authService.isAuthenticated()
+         })
     },
+
     methods: {
       logout() {
         authService.logout()
