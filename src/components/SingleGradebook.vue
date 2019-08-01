@@ -13,11 +13,17 @@
 
         Students:
         <ul>
-            <li v-for="(student, index) in students" :key="index">
-                {{ student.firstName }}
-            </li>
-            <!-- <li>This gradebook still doesn't have students.</li> -->
+            <div v-if="students">
+                <li v-for="(student, index) in students" :key="index">
+                    {{ student.firstName }}
+                </li>
+                <li v-if="students.length === 0">This gradebook still doesn't have students.</li>
+            </div>
         </ul>
+
+        <button type="button" class="btn btn-warning" @click="addStudent">Add student</button>
+
+
     </div>
 </template>
 
@@ -51,9 +57,13 @@ export default {
         user() {
             return this.gradebook.user.firstName
         }
+    },
+
+    methods: {
+        addStudent() {
+            this.$router.push({ name: "add-student" });
+        }
     }
-
-
 }
 </script>
 
@@ -103,7 +113,7 @@ h2 {
         +++- dnevnik ..naziv
         - ime i prezime razrednog staresine
         +++- liste učenika
-        - Ukoliko nema dodeljenog ni jednog učenika prikazujemo odgovarajucu poruku. 
+        +++- Ukoliko nema dodeljenog ni jednog učenika prikazujemo odgovarajucu poruku. 
         - dugme “Add New Students” - U gornjem levom uglu. Klikom otvara se stranica za dodavanje učenika 
             link -> ‘/gradebooks/:id/students/create’
             

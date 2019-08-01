@@ -25,7 +25,6 @@ export default {
                 name:'', 
                 user_id:'',
             },
-
             professors:[],
         }
     },
@@ -62,7 +61,6 @@ export default {
 
     computed: {
         availableProfessors() {
-            // this.$forceUpdate();
             return this.professors.filter(professor => 
                 professor.gradebook === null
             )

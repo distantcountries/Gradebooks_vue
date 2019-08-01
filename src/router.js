@@ -9,6 +9,7 @@ import AddGradebook from './components/AddGradebook'
 import AddProfessor from './components/AddProfessor'
 import SingleGradebook from './components/SingleGradebook'
 import SingleProfessor from './components/SingleProfessor'
+import AddStudent from './components/AddStudent'
 
 import { authService } from './services/Auth'
 
@@ -58,6 +59,11 @@ const routes = [{
         path: '/gradebooks/:id',
         component: SingleGradebook,
         name: 'single-gradebook',
+    },
+    {
+        path: '/gradebooks/:id/students/create',
+        component: AddStudent,
+        name: 'add-student',
     },
 
 

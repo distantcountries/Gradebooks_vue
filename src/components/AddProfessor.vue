@@ -14,7 +14,6 @@
 
             <button type="submit" class="btn btn-info">Submit</button>
             <button type="button" class="btn btn-info" @click="allProfessors">Cancel</button>
-
         </form>
     </div>
 </template>
@@ -57,8 +56,8 @@ form button {
 }
 /* 
 forma profesora:
-- firstName -> required, max 255
-- lastName -> required, max 255
++++- firstName -> required, max 255
++++- lastName -> required, max 255
 - select box koji prikazuje sve dnevnike koji nemaju dodeljenog razrednog starešinu 
     (ovo polje moze da bude nullable, i nije potrebno dodati dnevnik da bi se kreirao profesor)
 - input za dodavanje slike profesora -> required
