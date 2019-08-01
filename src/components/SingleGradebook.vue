@@ -2,7 +2,14 @@
     <div class="container">
         <h2 class="pageHeader">{{ gradebook.name }}</h2>
         <hr>
-        Professor: {{user}}<br>
+         
+        <div v-if="gradebook && gradebook.user">
+            Professor: {{gradebook.user.firstName}} {{gradebook.user.lastName}}
+        </div>
+
+        <div v-else>
+            <p>This gradebook is waiting for professor</p>
+        </div>
 
         Students:
         <ul>

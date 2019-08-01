@@ -4,7 +4,14 @@
         <div v-for="image in professor.images" :key="image.id" class="professorImages">
             <a href="#"><img :src="image.image" alt="Professor image" ></a>
         </div><br>
-        <span class="professorName"><router-link :to="singleGradebook(professor.gradebook.id)">{{ professor.gradebook.name }}</router-link></span>
+        <div v-if="professor && professor.gradebook">
+            <span class="professorName"><router-link :to="singleGradebook(professor.gradebook.id)">{{ professor.gradebook.name }}</router-link></span>
+            Students in total: {{ studentsInTotal }}
+        </div>
+        <div v-else>
+            There is not students
+        </div>
+   
     </div>
 </template>
 
@@ -21,6 +28,7 @@ export default {
             professorsService.get(vm.$route.params.id)
                 .then(response => {
                     vm.professor = response.data;
+                    console.log(response.data)
                 }).
                 catch(error => {
                     alert(error);
@@ -32,7 +40,14 @@ export default {
         singleGradebook(id) {
             return  `/gradebooks/${id}`;
         }
+    }, 
+
+    computed: {
+        studentsInTotal() {
+            return this.professor.gradebook.students.length
+        }
     }
+
 }
 </script>
 
@@ -41,8 +56,8 @@ export default {
 Podaci o profesoru:
 +++- ime i prezime
 +++- slika profesora
-- ime dnevnika na kome je razredni starešina -> link gradebooks/:id
-- ako je razredni br. učenika koji je u tom razredu */
++++- ime dnevnika na kome je razredni starešina -> link gradebooks/:id
++++- ako je razredni br. učenika koji je u tom razredu */
 
 
 

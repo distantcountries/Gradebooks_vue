@@ -11,7 +11,13 @@
                 <div v-for="image in professor.images" :key="image.id" class="professorImages">
                     <a href="#"><img :src="image.image" alt="Professor image" ></a>
                 </div>
-                <br>{{ professor.gradebook }}
+                <br>
+                <div v-if="professor && professor.gradebook">
+                    {{ professor.gradebook.name }}
+                </div>
+                <div v-else>
+                    <p>This professor is avilable</p>
+                </div>
                 <hr>
             </li>
         </ul>
@@ -68,9 +74,9 @@ export default {
 +++- input da filtriram po imenu profesora 
 +++- prikazati sliku profesora, 
 +++- ime i prezime kao 
-- naziv dnevnika 
-        * ukoliko ima ulogu razrednog starešine, 
-        * ukoliko nema prikazati umesto naziva dnevnika standardizovanu poruku 
++++- naziv dnevnika 
+        +++* ukoliko ima ulogu razrednog starešine, 
+        +++* ukoliko nema prikazati umesto naziva dnevnika standardizovanu poruku 
                 (npr. “Professor is available”)). */
 
 .professorName a {

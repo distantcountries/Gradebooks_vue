@@ -5,7 +5,7 @@
             <input type="text" name="name" placeholder="Name..." v-model="newGradebook.name" class="form-control" pattern=".{2,255}" required title="Min 2 characters, max 255 characters" />
             <select v-model="newGradebook.user_id" class="form-control">
                 <option value="" disabled selected>Choose professor...</option>
-                <option v-for="professor in availableProfessors" :key="professor.id" >
+                <option v-for="(professor, index) in availableProfessors" :key="index" :value="professor.id" >
                     {{professor.firstName}} {{professor.lastName}}
                 </option>
             </select>
@@ -79,8 +79,8 @@ export default {
     +++- Select box za biranje Razrednog 
             * U listi vidimo samo Profesore koji predhodno nisu razredne starešine, 
                 (vučemo postojeće podatke iz baze)
-    - “Submit”
-            +++* Ako su podaci neispravni, dobijam validacione poruke.
+    -+++ “Submit”
+* Ako su podaci neispravni, dobijam validacione poruke.
             * Ako su podaci ispravni, dnevnik je dodat i preusmeren sam na stranicu “Gradebooks”.
     +++- dugme “Cancel” koje me preusmerava na “Gradebooks” */
     

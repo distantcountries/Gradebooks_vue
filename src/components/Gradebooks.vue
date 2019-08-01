@@ -150,8 +150,8 @@ h2 {
 +++- da filtriram dnevnike
 +++- kada ukucam termin i kliknem na dugme prikazuju mi se samo dnevnici koji imaju ukucan termin u imenu dnevnika 
 
-“load more” se i dalje prikazuje i klikom na “load more” dugme se učitava novih 10
-dnevnika koji zadovoljavaju kriterijume filtera. */
++++- “load more” se i dalje prikazuje i klikom na “load more” dugme se učitava novih 10
+    dnevnika koji zadovoljavaju kriterijume filtera. */
 
 
 </style>
