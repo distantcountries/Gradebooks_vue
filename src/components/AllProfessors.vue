@@ -2,16 +2,16 @@
      <div class="container">
         <div class="pageHeader">
             <h2>Professors</h2>
-            <GradebookSearch @searchTermUpdated="setSearchTerm" />
+            <ProfessorSearch @searchTermUpdated="setSearchTerm" />
         </div>
         <hr>
         <ul>
-            <li v-for="(professor, index) in filteredProfessors" :key="index">
+            <li v-for="professor in filteredProfessors" :key="professor.id">
                 <span class="professorName"><router-link :to="singleProfessor(professor.id)">{{ professor.firstName }} {{ professor.lastName }}</router-link></span><br>
-                <div v-for="(image, index) in professor.images" :key="index" class="professorImages">
+                <div v-for="image in professor.images" :key="image.id" class="professorImages">
                     <a href="#"><img :src="image.image" alt="Professor image" ></a>
                 </div>
-                {{ professor.gradebook.name }}
+                <br>{{ professor.gradebook }}
                 <hr>
             </li>
         </ul>
@@ -20,10 +20,10 @@
 
 <script>
 import { professorsService } from '../services/ProfessorsService'
-import GradebookSearch from './GradebookSearch'
+import ProfessorSearch from './Search'
 export default {
     components: {
-        GradebookSearch
+        ProfessorSearch
     },
 
     data() {
@@ -75,11 +75,11 @@ export default {
 
 .professorName a {
     font-size: 1.2rem;
-    color: #494949;
+    color: #eebd30;
 }
 
 .professorName a:hover {
-    color:#9F9F9F;
+    color: #494949;
     text-decoration: none;
 }
 

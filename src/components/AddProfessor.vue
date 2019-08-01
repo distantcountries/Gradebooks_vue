@@ -1,6 +1,6 @@
 <template>
     <div>
-         <form @submit.prevent="addProfessor">
+         <form @submit.prevent="addProfessor" class="addProfessorForm">
             <h3>Add professor</h3>
             <input type="text" name="firstName" placeholder="First name..." v-model="firstName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />
             <input type="text" name="lastName" placeholder="Last name..." v-model="lastName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />
@@ -42,6 +42,16 @@ export default {
 </script>
 
 <style>
+.addProfessorForm {
+    width:50%;
+    margin: 0 auto;
+    margin-top:1rem;
+}
+
+form input, form button {
+    margin-bottom:0.5rem;
+}
+
 form button {
     margin-right: 1rem;
 }

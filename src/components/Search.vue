@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style>
-    form {
-        width:100%;
-    }
+form {
+    width:100%;
+}
 </style>

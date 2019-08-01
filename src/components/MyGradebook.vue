@@ -1,6 +1,8 @@
 <template>
-    <div>
-        MyGradebook
+    <div class="container">
+        <div class="pageHeader">
+            <h2>Gradebooks</h2>
+        </div>
     </div>
 </template>
 
@@ -12,8 +14,6 @@ export default {
 
 <style>
 /* 
- ja kao user sam profesor
-
 Kada kao korisnik pristupim ovoj stranici, vidim 
 - svoj dnevnik (na kome sam razredni starešina)
     * u koliko nisam dodeljen kao razredni starešina ni na jedan dnevnik prikazuje mi se samo 

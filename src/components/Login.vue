@@ -41,14 +41,14 @@ export default {
 </script>
 
 <style>
-    .loginForm {
-        width:50%;
-        margin: 0 auto;
-        margin-top:1rem;
-    }
+.loginForm {
+    width:50%;
+    margin: 0 auto;
+    margin-top:1rem;
+}
 
-    form input, form button {
-        margin-bottom:0.5rem;
-    }
+form input, form button {
+    margin-bottom:0.5rem;
+}
 </style>
 

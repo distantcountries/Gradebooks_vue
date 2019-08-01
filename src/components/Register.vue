@@ -60,13 +60,13 @@ export default {
 
 <style>
 .registerForm {
-        width:50%;
-        margin: 0 auto;
-        margin-top:1rem;
-    }
+    width:50%;
+    margin: 0 auto;
+    margin-top:1rem;
+}
 
-    form input, form button, #checkboxHelp {
-        margin-bottom:0.5rem;
-    }
+form input, form button, #checkboxHelp {
+    margin-bottom:0.5rem;
+}
 
 </style>

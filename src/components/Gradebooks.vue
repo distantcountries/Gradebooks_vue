@@ -23,7 +23,7 @@
 
 <script>
 import { gardebooksService } from '../services/GardebooksService'
-import GradebookSearch from './GradebookSearch'
+import GradebookSearch from './Search'
 export default {
     components: {
         GradebookSearch
@@ -148,8 +148,7 @@ h2 {
 
 +++- input polje i dugme “Filtriraj”, na vrhu stranice:
 +++- da filtriram dnevnike
-+++- kada ukucam termin i kliknem na dugme prikazuju mi se samo
-dnevnici koji imaju ukucan termin u imenu dnevnika 
++++- kada ukucam termin i kliknem na dugme prikazuju mi se samo dnevnici koji imaju ukucan termin u imenu dnevnika 
 
 “load more” se i dalje prikazuje i klikom na “load more” dugme se učitava novih 10
 dnevnika koji zadovoljavaju kriterijume filtera. */

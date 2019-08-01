@@ -2,7 +2,9 @@
     <div class="container">
         <h2 class="pageHeader">{{ gradebook.name }}</h2>
         <hr>
-        {{user}}
+        Professor: {{user}}<br>
+
+        Students:
         <ul>
             <li v-for="(student, index) in students" :key="index">
                 {{ student.firstName }}
@@ -16,13 +18,13 @@
 import { gardebooksService } from '../services/GardebooksService'
 export default {
     data() {
-        return{
+        return {
             gradebook:'', 
 
         }
     },
 
-     beforeRouteEnter (to, from, next) {
+    beforeRouteEnter (to, from, next) {
         next(vm => {
             gardebooksService.get(vm.$route.params.id)
                 .then(response => {
@@ -89,8 +91,7 @@ h2 {
 }
 
 
-/* ??? da li je singleGradebook isto sto i myGradebook 
-
+/* 
     - indentičan prikaz dnevnika  kao na my-gradebook stranici. 
         +++- dnevnik ..naziv
         - ime i prezime razrednog staresine
