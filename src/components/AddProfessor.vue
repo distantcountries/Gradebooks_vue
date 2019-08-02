@@ -3,19 +3,21 @@
         <form @submit.prevent="addProfessor" class="addProfessorForm">
             <h3>Add professor</h3><hr>
             <input type="text" name="firstName" placeholder="First name..." v-model="newProfessor.firstName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />
-            <input type="text" name="lastName" placeholder="Last name..." v-model="newProfessor.lastName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />
+            <input type="text" name="lastName" placeholder="Last name..." v-model="newProfessor.lastName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />           
             
-            <select v-model="newProfessor.gradebook_id" class="form-control">
+            <select v-model="newProfessor.gradebook" class="form-control">
                 <option value="" disabled selected>Choose gradebook...</option>
                 <option v-for="(gradebook, index) in availableGradebooks" :key="index" :value="gradebook.id" >
                     {{gradebook.name}}
                 </option>
-            </select>
-            
-            <div>
-                <button @click="showImageInput = true" class="btn btn-secondary" >Add Image</button>
-                <input v-if="showImageInput" type="file" accept=".png, .jpg, .jpeg" required />
+            </select> 
+
+            <button @click="showImageInput" class="btn btn-secondary" >Add Image</button>
+            <div v-for="(image, index) in newProfessor.images" :key="index">
+                <input v-if="imageInput" type="file" accept=".png, .jpg, .jpeg" required  />
+                <button type="button" @click="removeImage(index)" >x</button>
             </div>
+
             <hr>
             <div id="addProfessorsButtons">
                 <button type="submit" class="btn btn-info">Submit</button>
@@ -34,11 +36,11 @@ export default {
             newProfessor: {
                 firstName:'',
                 lastName:'',
-                showImageInput: false, 
-                gradebook:''
+                gradebook:'', 
+                images:[]
             },
-
-            gradebooks:[]
+            gradebooks:[],
+            imageInput: false, 
         }
     },
 
@@ -48,23 +50,37 @@ export default {
                 firstName:'',
                 lastName:'',
                 showImageInput: false, 
+                counter:'',
                 gradebook:''
             }
         },
 
         addProfessor() {
-             professorsService.add(this.newProfessor)
+            professorsService.add(this.newProfessor)
                 .then( response => {
                     this.newProfessor = this.getDefaults();
                     this.$router.push({ name: "all-professors" });
-                    }).catch(error => {
+                }).catch(error => {
                         alert('Error with adding professor!');
-                    });
+                });
         }, 
+
+        showImageInput() {
+            this.imageInput = true
+            this.newProfessor.images.push(this.counter++)
+        },
+
+        removeImage(index) {
+            console.log(index)
+            // var index = this.newProfessor.images.filter(image => { return image.id === imageId; }).indexOf(imageId);
+            return this.newProfessor.images.splice(index, 1);
+        },
+
+
 
         goToProfessors() {
             this.$router.push({ name: "all-professors" });
-        }
+        },
     }, 
 
     created() {
@@ -89,7 +105,7 @@ export default {
 forma profesora:
 +++- firstName -> required, max 255
 +++- lastName -> required, max 255
-- select box koji prikazuje sve dnevnike koji nemaju dodeljenog razrednog starešinu 
++++- select box koji prikazuje sve dnevnike koji nemaju dodeljenog razrednog starešinu 
     (ovo polje moze da bude nullable, i nije potrebno dodati dnevnik da bi se kreirao profesor)
 - input za dodavanje slike profesora -> required
     * Imam mogućnost da dodajem proizvoljan broj URL-ova preko dugmeta “Add Image”

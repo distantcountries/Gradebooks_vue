@@ -35,21 +35,10 @@ export default {
     },
 
     methods:{
-        addProfessor() {
-
-        },
-
         callFormAgain() {
             this.forms.push(this.counter++)
         }
     }, 
-
-    computed: {
-        formsDuplicate() {
-            return this.forms
-        }
-    }
-
 }
 </script>
 

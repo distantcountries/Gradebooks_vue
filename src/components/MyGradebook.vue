@@ -2,35 +2,38 @@
     <div class="container">
         <div class="pageHeader">
             <h2>My name</h2>
-            <div v-for="(professor, index) in professors" :key="index">
-                <!-- <p v-if="isAuthenticate && auth " >{{ professor.firstName }}</p> -->
-            </div>
-
-
+            <!-- <div v-for="(professor, index) in professors" :key="index"> -->
+            <!-- </div> -->
+            {{user.email}}
         </div>
         <hr>
+             <button type="button" class="btn btn-warning" @click="addStudent">Add student</button><br><br>
     </div>
 </template>
 
 <script>
 import { professorsService } from '../services/ProfessorsService'
+import { gardebooksService } from '../services/GardebooksService'
 import { authService } from '../services/Auth'
 export default {
-     props : ['user'],
     data() {
         return {
-            email:'',
-            professors:[], 
-            isAuthenticated: authService.isAuthenticated() 
+            user:''
         }
     },
 
-    created() {
-        professorsService.getAll()
-            .then(response => {
-                this.professors = response.data     
-                console.log(this.isAuthenticated) 
-            })
+    // created() {
+    //     professorsService.getAll()
+    //         .then(response => {
+    //             this.professors = response.data     
+    //         })
+    // },
+
+    methods: {
+        addStudent() {
+            this.$router.push({ name: "add-student" });
+        },
+
     },
 
 
