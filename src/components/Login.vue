@@ -31,7 +31,6 @@ export default {
             authService.login(this.email, this.password)
             .then(() => {
                 this.$bus.$emit('logged', 'user')
-                // this.$bus.$emit('getEmail', this.email)
                 this.$router.push({ name: "gradebooks" })
             })
             .catch(() => {

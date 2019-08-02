@@ -16,6 +16,11 @@ export default class GardebooksService {
     add(newGradebook) {
         return axios.post('gradebooks', newGradebook)
     }
+
+    addComment(newComment, id) {
+        console.log(newComment)
+        return axios.put('gradebooks/' + id, newComment)
+    }
 }
 
 export const gardebooksService = new GardebooksService()

@@ -3,10 +3,10 @@
         <div class="pageHeader">
             <h2>My name</h2>
             <div v-for="(professor, index) in professors" :key="index">
-                <p v-if="professor.email===email">{{ professor.firstName }}</p>
+                <!-- <p v-if="isAuthenticate && auth " >{{ professor.firstName }}</p> -->
             </div>
 
-            {{email}}
+
         </div>
         <hr>
     </div>
@@ -16,21 +16,25 @@
 import { professorsService } from '../services/ProfessorsService'
 import { authService } from '../services/Auth'
 export default {
+     props : ['user'],
     data() {
         return {
             email:'',
-            professors:[]
+            professors:[], 
+            isAuthenticated: authService.isAuthenticated() 
         }
     },
 
     created() {
-        this.$bus.$on('getEmail', (email) => {this.email = email})
-        // professorsService.getAll()
-        //     .then(response => {
-        //         this.professors = response.data      
-        //     })
-
+        professorsService.getAll()
+            .then(response => {
+                this.professors = response.data     
+                console.log(this.isAuthenticated) 
+            })
     },
+
+
+
 }
 </script>
 

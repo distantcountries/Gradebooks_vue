@@ -7,8 +7,8 @@
             <hr>
         </div>
             <div v-for="(form, index) in forms" :key="index">
-                <input type="text" name="firstName" placeholder="First name..." v-model="firstName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />
-                <input type="text" name="lastName" placeholder="Last name..." v-model="lastName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />
+                <input type="text" name="firstName" placeholder="First name..." v-model="firstName" class="form-control" />
+                <input type="text" name="lastName" placeholder="Last name..." v-model="lastName" class="form-control" />
                 <div>
                     <button @click="showImageInput = true" class="btn btn-secondary" >Add Image</button>
                     <input v-if="showImageInput" type="file" accept=".png, .jpg, .jpeg" required />

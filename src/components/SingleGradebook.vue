@@ -4,26 +4,43 @@
         <hr>
          
         <div v-if="gradebook && gradebook.user">
-            Professor: <router-link :to="singleProfessor(gradebook.user.id)" style="color:#eebd30;">{{gradebook.user.firstName}} {{gradebook.user.lastName}}</router-link>
+           <span class="boldText">Professor:</span><router-link :to="singleProfessor(gradebook.user.id)" style="color:#eebd30; font-size:1.2rem;"> {{gradebook.user.firstName}} {{gradebook.user.lastName}}</router-link>
         </div>
-
         <div v-else>
             <p>This gradebook is waiting for professor</p>
         </div>
 
-        Students:
+        <span class="boldText">Students:</span>
         <ul>
             <div v-if="students">
                 <li v-for="(student, index) in students" :key="index">
-                    {{ student.firstName }}
+                    {{ student.firstName }} {{ student.lastName }}
                 </li>
                 <li v-if="students.length === 0">This gradebook still doesn't have students.</li>
             </div>
         </ul>
+        <button type="button" class="btn btn-warning" @click="addStudent">Add student</button><br><br>
 
-        <button type="button" class="btn btn-warning" @click="addStudent">Add student</button>
+        <!-- <span class="boldText">Comments:</span> -->
+        <hr>
+        <div v-if="comments">
+            <li v-for="(comment, index) in comments" :key="index" class="commentsList">
+                {{ comment.content }}<br>
+                <span style="font-style:italic;color:#727272;">
+                    Posted by: 
+                    {{ comment.user.firstName }} {{ comment.user.lastName }}, 
+                    {{ comment.created_at }}
+                    <hr>
+                </span>
+            </li>
+        </div>
 
-
+        <form @submit.prevent="addComment" class="addCommentForm">
+            <textarea placeholder="Comment..." v-model="newComment.content" pattern=".{1,1000}" required title="Min 1 characters, max 1000 characters" class="form-control"></textarea>
+            <div id="addCommentButton">
+                <button type="submit" class="btn btn-info" style="margin-top:0.5rem;">Add comment</button>
+            </div>
+        </form>
     </div>
 </template>
 
@@ -33,7 +50,10 @@ export default {
     data() {
         return {
             gradebook:'', 
-
+            newComment:{
+                content:''
+            },
+            id:null
         }
     },
 
@@ -56,6 +76,10 @@ export default {
 
         user() {
             return this.gradebook.user.firstName
+        }, 
+
+        comments() {
+            return this.gradebook.comments
         }
     },
 
@@ -66,8 +90,27 @@ export default {
 
         singleProfessor(id) {
             return  `/teachers/${id}`;
+        },
+
+        getDefaults () {
+            return {
+                content: '',
+            }
+        },
+
+        addComment() {
+            gardebooksService.addComment(this.newComment, this.id)
+                .then( response => {
+                    this.newComment = this.getDefaults();
+                }).catch(error => {
+                        alert('Error with adding comment!');
+                });
         }
-    }
+    },
+
+    created(){
+       this.id = this.$router.currentRoute.params.id;
+    },
 }
 </script>
 
@@ -78,19 +121,19 @@ export default {
         +++- ime i prezime razrednog staresine
         +++- liste učenika
         +++- Ukoliko nema dodeljenog ni jednog učenika prikazujemo odgovarajucu poruku. 
-        - dugme “Add New Students” - U gornjem levom uglu. Klikom otvara se stranica za dodavanje učenika 
+        +++- dugme “Add New Students” - U gornjem levom uglu. Klikom otvara se stranica za dodavanje učenika 
             link -> ‘/gradebooks/:id/students/create’
         - samo ulogovani korisnik moze da dodaje studente
             
-    Lista komentara:
-    Commentar:
-        - ime autora
-        - vreme postavljanja
-        - content komentara
+    +++Lista komentara:
+    +++Commentar:
+        +++- ime autora
+        +++- vreme postavljanja
+        +++- content komentara
 
     Ako sam ulogovan korisnik, ispod liste komentara:
     forma comments:
-    - textarea gde upisujem komentar; maksimalno 1000 karaktera i min:1 karakter
+    +++- textarea gde upisujem komentar; maksimalno 1000 karaktera i min:1 karakter
     
     Nakon uspešnog dodavanja, komentar je automatski dodat u listu komentara iznad, forma za
     dodavanej komentara se ne vidi. 
@@ -139,6 +182,24 @@ h2 {
 
 .container {
     padding: 3rem;
+}
+
+.boldText {
+    font-weight: bold;
+}
+
+.commentsList {
+    margin-bottom: 1rem;
+}
+
+.addCommentForm {
+    width: 100%;
+}
+
+#addCommentButton {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 </style>
