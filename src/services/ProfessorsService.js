@@ -14,7 +14,7 @@ export default class ProfessorsService {
     }
 
     add(newProfessor) {
-        return axios.post('users', newProfessor)
+        return axios.post('users', { user: newProfessor, user_id: JSON.parse(localStorage.getItem('user')).id })
     }
 }
 

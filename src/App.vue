@@ -28,7 +28,7 @@ import { authService } from './services/Auth'
   export default {
     data() {
       return {
-        isAuthenticated: authService.isAuthenticated() 
+        isAuthenticated: authService.isAuthenticated(),
       }
     },
 

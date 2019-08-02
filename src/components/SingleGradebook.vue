@@ -2,6 +2,8 @@
     <div class="container">
         <h2 class="pageHeader">{{ gradebook.name }}</h2>
         <hr>
+
+        <button class="btn btn-danger" @click="deleteGradebook">Delete gradebook</button>
          
         <div v-if="gradebook && gradebook.user">
            <span class="boldText">Professor:</span><router-link :to="singleProfessor(gradebook.user.id)" style="color:#eebd30; font-size:1.2rem;"> {{gradebook.user.firstName}} {{gradebook.user.lastName}}</router-link>
@@ -21,7 +23,6 @@
         </ul>
         <button type="button" class="btn btn-warning" @click="addStudent">Add student</button><br><br>
 
-        <!-- <span class="boldText">Comments:</span> -->
         <hr>
         <div v-if="comments">
             <li v-for="(comment, index) in comments" :key="index" class="commentsList">
@@ -105,6 +106,14 @@ export default {
                 }).catch(error => {
                         alert('Error with adding comment!');
                 });
+        },
+
+        deleteGradebook() {
+            if (window.confirm('Are you sure?')) {
+                let id = this.$route.params.id
+                gardebooksService.delete(id)
+            }
+            return  
         }
     },
 

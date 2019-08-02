@@ -18,12 +18,16 @@ export default class GardebooksService {
     }
 
     addComment(newComment, id) {
-        console.log(newComment)
-        return axios.put('gradebooks/' + id, newComment)
+        console.log(JSON.parse(localStorage.getItem('user')));
+        return axios.post('comments/', { comment: newComment, gradebook_id:id, user_id: JSON.parse(localStorage.getItem('user')).id })
     }
 
     edit(myProfile) {
         return axios.put('gradebooks', myProfile)
+    }
+
+    delete(id){
+        return axios.delete(`/gradebooks/${id}`)
     }
 }
 

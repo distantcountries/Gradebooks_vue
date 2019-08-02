@@ -37,9 +37,7 @@ export default {
                 this.errorMessage = 'Wrong credentials!';
             })
         }, 
-
     },
-
 }
 </script>
 
