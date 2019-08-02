@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <form @submit.prevent="register" class="registerForm">
             <h3>Register</h3>
             <input type="text" name="firstName" placeholder="First name..." v-model="firstName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />
@@ -54,7 +54,6 @@ export default {
             }
         }
     }
-
 }
 </script>
 

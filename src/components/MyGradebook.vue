@@ -1,14 +1,36 @@
 <template>
     <div class="container">
         <div class="pageHeader">
-            <h2>Gradebooks</h2>
+            <h2>My name</h2>
+            <div v-for="(professor, index) in professors" :key="index">
+                <p v-if="professor.email===email">{{ professor.firstName }}</p>
+            </div>
+
+            {{email}}
         </div>
+        <hr>
     </div>
 </template>
 
 <script>
+import { professorsService } from '../services/ProfessorsService'
+import { authService } from '../services/Auth'
 export default {
+    data() {
+        return {
+            email:'',
+            professors:[]
+        }
+    },
 
+    created() {
+        this.$bus.$on('getEmail', (email) => {this.email = email})
+        // professorsService.getAll()
+        //     .then(response => {
+        //         this.professors = response.data      
+        //     })
+
+    },
 }
 </script>
 

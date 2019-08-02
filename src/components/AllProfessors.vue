@@ -1,5 +1,5 @@
 <template>
-     <div class="container">
+    <div class="container">
         <div class="pageHeader">
             <h2>Professors</h2>
             <ProfessorSearch @searchTermUpdated="setSearchTerm" />
@@ -68,7 +68,6 @@ export default {
 </script>
 
 <style>
-
 /* 
 +++- lista profesora:
 +++- input da filtriram po imenu profesora 
@@ -115,5 +114,10 @@ img {
     width: auto;
     border-radius: 0.5rem;
     display: inline-block;
+}
+
+img:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=40);
 }
 </style>

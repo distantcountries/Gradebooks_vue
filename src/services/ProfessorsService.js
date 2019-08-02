@@ -13,7 +13,9 @@ export default class ProfessorsService {
         return axios.get('users/' + id)
     }
 
-
+    add(newProfessor) {
+        return axios.post('users', newProfessor)
+    }
 }
 
 export const professorsService = new ProfessorsService()

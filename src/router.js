@@ -65,15 +65,12 @@ const routes = [{
         component: AddStudent,
         name: 'add-student',
     },
-
-
 ]
 
 export const router = new VueRouter({
     routes,
     mode: 'history'
 })
-
 
 router.beforeEach((to, from, next) => {
     if (to.name !== 'login' && to.name !== 'register' && to.name !== 'gradebooks' && !authService.isAuthenticated()) {

@@ -14,10 +14,8 @@ export default class GardebooksService {
     }
 
     add(newGradebook) {
-        // delete newGradebook.id;
         return axios.post('gradebooks', newGradebook)
     }
-
 }
 
 export const gardebooksService = new GardebooksService()

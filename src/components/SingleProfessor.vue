@@ -6,7 +6,7 @@
         </div><br>
         <div v-if="professor && professor.gradebook">
             <span class="professorName"><router-link :to="singleGradebook(professor.gradebook.id)">{{ professor.gradebook.name }}</router-link></span>
-            Students in total: {{ studentsInTotal }}
+            <br>Students in total: {{ studentsInTotal }}
         </div>
         <div v-else>
             There is not students
@@ -58,7 +58,16 @@ Podaci o profesoru:
 +++- slika profesora
 +++- ime dnevnika na kome je razredni starešina -> link gradebooks/:id
 +++- ako je razredni br. učenika koji je u tom razredu */
+img {
+    margin:0.5rem;
+    height: 100px;
+    width: auto;
+    border-radius: 0.5rem;
+    display: inline-block;
+}
 
-
-
+img:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=40);
+}
 </style>

@@ -3,7 +3,7 @@
     <nav class="navbar navbar-dark bg-light" style="color:white; padding:1rem 3rem 1rem 3rem;">
       <div>
         <img alt="Gradebook" src="./assets/book.png">
-        <span id="logoText">Online Gradebook</span>
+        <router-link to="/" style="color:#38a2b8; text-decoration:none"><span id="logoText">Online Gradebook</span></router-link>
       </div>
       <div v-if="!isAuthenticated">
         <router-link to="/" style="color:#38a2b8;">Gradebooks</router-link><span class="betweenLinks"> | </span> 
@@ -31,9 +31,6 @@ import { authService } from './services/Auth'
         isAuthenticated: authService.isAuthenticated() 
       }
     },
-    // created() {
-    //   this.isAuthenticated = authService.isAuthenticated();
-    // },
 
     created() {
          this.$bus.$on('logged', () => {
@@ -56,10 +53,16 @@ import { authService } from './services/Auth'
   font-size: 1.5rem;
   font-weight: bold;
 }
+
+#logoText:hover {
+  color:#ffabab;
+}
+
 img {
   width: 10%;
   height: 10%;
 }
+
 .betweenLinks {
   color: #38a2b8;
 }
