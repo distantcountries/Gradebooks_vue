@@ -2,10 +2,25 @@
     <div class="container">
         <form @submit.prevent="login" class="loginForm">
             <h3>Login</h3>
-            <input type="email" name="email" placeholder="Email..." v-model="email" class="form-control" required title="Plese insert your email" />
-            <input type="password" name="password" placeholder="Password..." v-model="password" class="form-control" required />
+            <input 
+                type="email" 
+                name="email" 
+                placeholder="Email..." 
+                v-model="email" 
+                class="form-control" 
+                required 
+                title="Plese insert your email" 
+            />
+            <input 
+                type="password" 
+                name="password" 
+                placeholder="Password..." 
+                v-model="password" 
+                class="form-control" 
+                required 
+            />
             <button type="submit" class="btn btn-info">Log in</button>
-            <p style="color:#ef5656;" >{{ errorMessage }}</p>
+            <p style="color:#ef5656;">{{ errorMessage }}</p>
         </form>
     </div>
 </template>

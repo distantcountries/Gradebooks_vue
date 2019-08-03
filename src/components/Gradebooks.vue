@@ -7,13 +7,25 @@
         <hr>
         <ul>
             <li v-for="(gradebook, index) in visibleGradebooks" :key="index">
-                <span class="linkTittle"><router-link :to="singleGardebook(gradebook.id)">{{ gradebook.name }}</router-link></span><br>
-                <span class="linkElement" v-if="gradebook.user_id===null" style="color:#727272;">This gradebook still doesn't have a professor</span>
-                <span class="linkElement" v-else><router-link :to="mainProfessor(gradebook.user.id)">Professor {{ gradebook.user.firstName }} {{ gradebook.user.lastName }}</router-link></span><br>
+                <span class="linkTittle">
+                    <router-link :to="singleGardebook(gradebook.id)">
+                        {{ gradebook.name }}
+                    </router-link>
+                </span>
+                <br>
+                <span class="linkElement" v-if="gradebook.user_id===null" style="color:#727272;">
+                    This gradebook still doesn't have a professor
+                </span>
+                <span class="linkElement" v-else>
+                    <router-link :to="mainProfessor(gradebook.user.id)">Professor {{ gradebook.user.firstName }} {{ gradebook.user.lastName }}</router-link>
+                </span>
+                <br>
                 <span class="timeElement">Created at: {{ gradebook.created_at }}</span>
                 <hr>
             </li>
-            <li v-if="gradebooks.length === 0">There is no created gradebooks</li>
+            <li v-if="gradebooks.length === 0">
+                There is no created gradebooks
+            </li>
         </ul>
         <div v-if="gradebooks.length/10>counter && gradebooks.length>0 " style="padding-left:50%;">
             <button @click="encreaseShownGradebooks" type="button" class="btn btn-warning">Load more</button>
@@ -44,6 +56,9 @@ export default {
             .then(response => {
                 this.gradebooks = response.data
             })
+            .catch(error => {
+                alert('Error with getting gradebooks!');
+            });
     },
 
     methods: {
@@ -84,35 +99,11 @@ export default {
                 return index >= bottomLimit && index < topLimit;
             })
         }, 
-
     },
-
 }
 </script>
 
 <style>
-/* 
-+++- lista poslednjh 10 dnevnika 
-
-+++- dnevnik:
-+++- naziv dnevnika -> link /gradebooks/:id, 
-+++- ime i prezime razrednog starešine  -> link /teachers/:id
-+++- ukoliko dnevnik nema razrednog starešinu prikazujemo odgovarajucu poruku na datom mestu
-+++- vreme kreiranja. 
-
-+++U slučaju da nije kreiran nijedan dnevnik, prikazati odgovarajuću poruku. 
-
-+++- “load more” , na dnu stranice:
-+++- da učitam dodatnih 10 dnevnika
-+++- Ako nema više dnevnika za učitavanje, ovaj button se ne prikazuje.
-
-+++- input polje i dugme “Filtriraj”, na vrhu stranice:
-+++- da filtriram dnevnike
-+++- kada ukucam termin i kliknem na dugme prikazuju mi se samo dnevnici koji imaju ukucan termin u imenu dnevnika 
-
-+++- “load more” se i dalje prikazuje i klikom na “load more” dugme se učitava novih 10
-    dnevnika koji zadovoljavaju kriterijume filtera. */
-
 .linkTittle a {
     font-size: 1.5rem;
     color: #eebd30;
@@ -150,9 +141,5 @@ h2 {
 .container {
     padding: 3rem;
 }
-
-
-
-
 </style>
 

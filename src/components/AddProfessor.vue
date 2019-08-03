@@ -2,22 +2,39 @@
     <div class="container">
         <form @submit.prevent="addProfessor" class="addProfessorForm">
             <h3>Add professor</h3><hr>
-            <input type="text" name="firstName" placeholder="First name..." v-model="newProfessor.firstName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />
-            <input type="text" name="lastName" placeholder="Last name..." v-model="newProfessor.lastName" class="form-control" pattern=".{1,255}" required title="Max 255 characters" />           
-            
+            <input 
+                type="text" 
+                name="firstName" 
+                placeholder="First name..." 
+                v-model="newProfessor.firstName" 
+                class="form-control" 
+                pattern=".{1,255}" 
+                required 
+                title="Max 255 characters" 
+            />
+            <input 
+                type="text" 
+                name="lastName" 
+                placeholder="Last name..." 
+                v-model="newProfessor.lastName" 
+                class="form-control" 
+                pattern=".{1,255}" 
+                required 
+                title="Max 255 characters" 
+            />           
             <select v-model="newProfessor.gradebook" class="form-control">
-                <option value="" disabled selected>Choose gradebook...</option>
+                <option value="" disabled selected>
+                    Choose gradebook...
+                </option>
                 <option v-for="(gradebook, index) in availableGradebooks" :key="index" :value="gradebook.id" >
                     {{gradebook.name}}
                 </option>
             </select> 
-
             <button @click="showImageInput" class="btn btn-secondary" >Add Image</button>
             <div v-for="(image, index) in newProfessor.images" :key="index">
                 <input v-if="imageInput" type="file" accept=".png, .jpg, .jpeg" required  />
                 <button type="button" @click="removeImage(index)" >x</button>
             </div>
-
             <hr>
             <div id="addProfessorsButtons">
                 <button type="submit" class="btn btn-info">Submit</button>
@@ -60,9 +77,7 @@ export default {
                 .then( response => {
                     this.newProfessor = this.getDefaults();
                     this.$router.push({ name: "all-professors" });
-                }).catch(error => {
-                        alert('Error with adding professor!');
-                });
+                })
         }, 
 
         showImageInput() {
@@ -71,12 +86,8 @@ export default {
         },
 
         removeImage(index) {
-            console.log(index)
-            // var index = this.newProfessor.images.filter(image => { return image.id === imageId; }).indexOf(imageId);
             return this.newProfessor.images.splice(index, 1);
         },
-
-
 
         goToProfessors() {
             this.$router.push({ name: "all-professors" });
@@ -101,26 +112,6 @@ export default {
 </script>
 
 <style>
-/* 
-forma profesora:
-+++- firstName -> required, max 255
-+++- lastName -> required, max 255
-+++- select box koji prikazuje sve dnevnike koji nemaju dodeljenog razrednog starešinu 
-    (ovo polje moze da bude nullable, i nije potrebno dodati dnevnik da bi se kreirao profesor)
-- input za dodavanje slike profesora -> required
-    * Imam mogućnost da dodajem proizvoljan broj URL-ova preko dugmeta “Add Image”
-    * Za svaki URL postavljamo posebno input polje
-    * Validiramo da li je upisan validan URL i da li se URL završava sa nekom image
-        ekstenzijom (png, jpg ili jpeg)
-    * Imam mogućnost da uklonim bilo koji URL
-    * defaultno se ne prikazuje nijedan input za dodavanje slika. Ukoliko user ne doda sliku, 
-        i pokusa da submituje vraća mu se validaciona poruka i ispisuje se da je neophodno dodati 
-        bar jednu sliku 
-    * click-om na dugme add Image kreira se input ispod Title inputa
-- “Submit”, ako su podaci neispravni, dobijam validacione poruke. Ako su podaci ispravni preusmerenje  
-    na stranicu “All Professors”.
-+++- dugme “Cancel” koje me preusmerava na “All Professors” */
-
 .addProfessorForm {
     width:50%;
     margin: 0 auto;
@@ -140,7 +131,6 @@ form button {
     flex-wrap: wrap;
     justify-content: center;
 }
-
 </style>
 
 

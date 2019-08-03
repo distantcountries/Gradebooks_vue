@@ -1,17 +1,24 @@
 <template>
     <div class="container">
-        <h2 class="pageHeader">{{ professor.firstName}} {{ professor.lastName}}</h2>
+        <h2 class="pageHeader">
+            {{ professor.firstName }} {{ professor.lastName }}
+        </h2>
         <div v-for="image in professor.images" :key="image.id" class="professorImages">
-            <a href="#"><img :src="image.image" alt="Professor image" ></a>
-        </div><br>
+            <a href="#">
+                <img :src="image.image" alt="Professor image" >
+            </a>
+        </div>
+        <br>
         <div v-if="professor && professor.gradebook">
-            <span class="professorName"><router-link :to="singleGradebook(professor.gradebook.id)">{{ professor.gradebook.name }}</router-link></span>
-            <br>Students in total: {{ studentsInTotal }}
+            <span class="professorName">
+                <router-link :to="singleGradebook(professor.gradebook.id)">{{ professor.gradebook.name }}</router-link>
+            </span>
+            <br>
+            Students in total: {{ studentsInTotal }}
         </div>
         <div v-else>
             There is not students
         </div>
-   
     </div>
 </template>
 
@@ -23,15 +30,15 @@ export default {
             professor:'',
         }
     },
+    
     beforeRouteEnter (to, from, next) {
         next(vm => {
             professorsService.get(vm.$route.params.id)
                 .then(response => {
                     vm.professor = response.data;
-                    console.log(response.data)
                 }).
                 catch(error => {
-                    alert(error);
+                    alert('Error with getting professor!');
                 })
         })
     },
@@ -47,17 +54,10 @@ export default {
             return this.professor.gradebook.students.length
         }
     }
-
 }
 </script>
 
 <style>
-/* 
-Podaci o profesoru:
-+++- ime i prezime
-+++- slika profesora
-+++- ime dnevnika na kome je razredni starešina -> link gradebooks/:id
-+++- ako je razredni br. učenika koji je u tom razredu */
 img {
     margin:0.5rem;
     height: 100px;

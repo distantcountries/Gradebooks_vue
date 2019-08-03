@@ -1,32 +1,34 @@
 <template>
     <div class="container">
-        <h2 class="pageHeader">{{ gradebook.name }}</h2>
+        <h2 class="pageHeader">
+            {{ gradebook.name }}
+        </h2>
         <hr>
-
         <button class="btn btn-danger" @click="deleteGradebook">Delete gradebook</button>
-         
         <div v-if="gradebook && gradebook.user">
-           <span class="boldText">Professor:</span><router-link :to="singleProfessor(gradebook.user.id)" style="color:#eebd30; font-size:1.2rem;"> {{gradebook.user.firstName}} {{gradebook.user.lastName}}</router-link>
+            <span class="boldText">Professor:</span>
+            <router-link :to="singleProfessor(gradebook.user.id)" style="color:#eebd30; font-size:1.2rem;"> {{gradebook.user.firstName}} {{gradebook.user.lastName}}</router-link>
         </div>
         <div v-else>
             <p>This gradebook is waiting for professor</p>
         </div>
-
         <span class="boldText">Students:</span>
         <ul>
             <div v-if="students">
                 <li v-for="(student, index) in students" :key="index">
                     {{ student.firstName }} {{ student.lastName }}
                 </li>
-                <li v-if="students.length === 0">This gradebook still doesn't have students.</li>
+                <li v-if="students.length === 0">
+                    This gradebook still doesn't have students.
+                </li>
             </div>
         </ul>
         <button type="button" class="btn btn-warning" @click="addStudent">Add student</button><br><br>
-
         <hr>
         <div v-if="comments">
             <li v-for="(comment, index) in comments" :key="index" class="commentsList">
-                {{ comment.content }}<br>
+                {{ comment.content }}
+                <br>
                 <span style="font-style:italic;color:#727272;">
                     Posted by: 
                     {{ comment.user.firstName }} {{ comment.user.lastName }}, 
@@ -35,9 +37,15 @@
                 </span>
             </li>
         </div>
-
         <form @submit.prevent="addComment" class="addCommentForm">
-            <textarea placeholder="Comment..." v-model="newComment.content" pattern=".{1,1000}" required title="Min 1 characters, max 1000 characters" class="form-control"></textarea>
+            <textarea 
+                placeholder="Comment..." 
+                v-model="newComment.content" 
+                pattern=".{1,1000}" 
+                required 
+                title="Min 1 characters, max 1000 characters" 
+                class="form-control">
+            </textarea>
             <div id="addCommentButton">
                 <button type="submit" class="btn btn-info" style="margin-top:0.5rem;">Add comment</button>
             </div>
@@ -51,10 +59,11 @@ export default {
     data() {
         return {
             gradebook:'', 
-            newComment:{
+            newComment: {
                 content:''
             },
-            id:null
+            id:null,
+            currentUser:JSON.parse(localStorage.getItem('user'))
         }
     },
 
@@ -63,9 +72,9 @@ export default {
             gardebooksService.get(vm.$route.params.id)
                 .then(response => {
                     vm.gradebook = response.data;
-                }).
-                catch(error => {
-                    alert(error);
+                })
+                .catch(error => {
+                    alert('Error with getting gradebook!');
                 })
         })
     },
@@ -103,15 +112,18 @@ export default {
             gardebooksService.addComment(this.newComment, this.id)
                 .then( response => {
                     this.newComment = this.getDefaults();
-                }).catch(error => {
-                        alert('Error with adding comment!');
+                    window.location.reload()
+                })
+                .catch(error => {
+                    alert('Error with adding comment!');
                 });
         },
 
         deleteGradebook() {
-            if (window.confirm('Are you sure?')) {
+            if ( window.confirm('Are you sure you want to delete this gradeboo?') ) {
                 let id = this.$route.params.id
                 gardebooksService.delete(id)
+                this.$router.push({ name: "gradebooks" });
             }
             return  
         }
@@ -124,37 +136,6 @@ export default {
 </script>
 
 <style>
-/* 
-    - indentičan prikaz dnevnika  kao na my-gradebook stranici. 
-        +++- dnevnik ..naziv
-        +++- ime i prezime razrednog staresine
-        +++- liste učenika
-        +++- Ukoliko nema dodeljenog ni jednog učenika prikazujemo odgovarajucu poruku. 
-        +++- dugme “Add New Students” - U gornjem levom uglu. Klikom otvara se stranica za dodavanje učenika 
-            link -> ‘/gradebooks/:id/students/create’
-        - samo ulogovani korisnik moze da dodaje studente
-            
-    +++Lista komentara:
-    +++Commentar:
-        +++- ime autora
-        +++- vreme postavljanja
-        +++- content komentara
-
-    Ako sam ulogovan korisnik, ispod liste komentara:
-    forma comments:
-    +++- textarea gde upisujem komentar; maksimalno 1000 karaktera i min:1 karakter
-    
-    Nakon uspešnog dodavanja, komentar je automatski dodat u listu komentara iznad, forma za
-    dodavanej komentara se ne vidi. 
-
-    Ako sam ulogovan korisnik, pored svakog mog komentara imam button “Delete” za brisanje komentara. 
-    Na klik, aplikacija me najpre pita za potvrdu (window.confirm) da li sam siguran da želim da obrišem komentar. 
-    Nakon što potvrdim, komentar treba da je automatski izbrisan iz liste komentara.
-    
-    Neulogovani korisnici mogu samo da vide comments dok ne mogu da ih dodaju, brisu ili edituju. 
-    Forma se ni ne vidi ako nismo ulogovani. 
-    Delete comments se ne vidi ako nismo ulogovani. */
-
 .linkTittle a {
     font-size: 1.5rem;
     color: #eebd30;
