@@ -87,9 +87,8 @@ export default {
         register() {
             authService.register(this.firstName, this.lastName, this.email, this.password)
             .then(() => {
-                this.isAuthenticated = true
                 this.$bus.$emit('logged', 'user')
-                this.$router.push({ name: "gradebooks" });
+                this.$router.push({ name: "gradebooks" })
             })
             .catch(error => {
                     alert('Register error!');

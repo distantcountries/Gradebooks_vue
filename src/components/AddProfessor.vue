@@ -30,11 +30,18 @@
                     {{gradebook.name}}
                 </option>
             </select> 
-            <button @click="showImageInput" class="btn btn-secondary" >Add Image</button>
-            <div v-for="(image, index) in newProfessor.images" :key="index">
-                <input v-if="imageInput" type="file" accept=".png, .jpg, .jpeg" required  />
-                <button type="button" @click="removeImage(index)" >x</button>
-            </div>
+            <button v-if="!imageInput" @click="showImageInput" class="btn btn-secondary"  >Add Image</button>
+                <div v-if="imageInput" class="imageElements">
+                    <input 
+                        v-model="newProfessor.image"
+                        type="text" 
+                        class="form-control"
+                        placeholder="Image"
+                        style="width:70%"
+                         
+                    />
+                    <button type="button" class="btn btn-light"  @click="removeImage" >Remove image</button>
+                </div>
             <hr>
             <div id="addProfessorsButtons">
                 <button type="submit" class="btn btn-info">Submit</button>
@@ -54,10 +61,11 @@ export default {
                 firstName:'',
                 lastName:'',
                 gradebook:'', 
-                images:[]
+                image:''
             },
             gradebooks:[],
             imageInput: false, 
+            currentImage:''
         }
     },
 
@@ -67,8 +75,8 @@ export default {
                 firstName:'',
                 lastName:'',
                 showImageInput: false, 
-                counter:'',
-                gradebook:''
+                gradebook:'', 
+                image:''
             }
         },
 
@@ -78,15 +86,18 @@ export default {
                     this.newProfessor = this.getDefaults();
                     this.$router.push({ name: "all-professors" });
                 })
+                .catch(e => {
+                    alert('Error with adding professor!');
+                });
         }, 
 
         showImageInput() {
             this.imageInput = true
-            this.newProfessor.images.push(this.counter++)
         },
 
-        removeImage(index) {
-            return this.newProfessor.images.splice(index, 1);
+        removeImage() {
+            this.imageInput = false;
+            return this.newProfessor.image=''
         },
 
         goToProfessors() {
@@ -130,6 +141,13 @@ form button {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.imageElements{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
 }
 </style>
 
