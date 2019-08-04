@@ -17,7 +17,7 @@
             Students in total: {{ studentsInTotal }}
         </div>
         <div v-else>
-            There is not students
+            There is no students
         </div>
     </div>
 </template>

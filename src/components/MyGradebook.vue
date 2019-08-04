@@ -56,7 +56,7 @@ export default {
 
         deleteGradebook() {
             if ( window.confirm('Are you sure you want to delete your gradebook?') ) {
-                let id = this.$route.params.id
+                let id = this.professor.gradebook.id
                 gardebooksService.delete(id)
                 this.$router.push({ name: "gradebooks" });
             }
