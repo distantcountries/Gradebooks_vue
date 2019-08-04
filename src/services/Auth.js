@@ -40,12 +40,8 @@ export default class AuthService {
         this.user.email = email;
         this.user.password = password;
         return axios.post('http://localhost:8000/api/register', this.user)
-            .then(({ data }) => {
-                window.localStorage.setItem('loginToken', data.token)
-                window.localStorage.setItem('user', JSON.stringify(data.user))
-                this.setAxiosDefaultAuthorizationHeader()
-                console.log('login after register')
-                return data.user;
+            .then(() => {
+                this.login(this.user.email, this.user.password);
             })
             .catch($e => {
                 alert($e)
